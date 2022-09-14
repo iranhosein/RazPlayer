@@ -135,6 +135,46 @@ public class MediaPlayerViewController {
     private Timeline timeLine;
 
     /**
+     * The Address source of images.
+     */
+    private final String imageResources = "file:resources/images/";
+
+    /**
+     * The image address of playbtn.
+     */
+    private final String playBtnShape = imageResources + "playbtn.png";
+
+    /**
+     * The image address of pausebtn.
+     */
+    private final String pauseBtnShape = imageResources + "pausebtn.png";
+
+    /**
+     * The image address of repeatonebtn.
+     */
+    private final String repeatoneBtnShape = imageResources + "repeatonebtn.png";
+
+    /**
+     * The image address of repeatbtn.
+     */
+    private final String repeatBtnShape = imageResources + "repeatbtn.png";
+
+    /**
+     * The image address of mutebtn.
+     */
+    private final String muteBtnShape = imageResources + "mutebtn.png";
+
+    /**
+     * The image address of volbtn.
+     */
+    private final String volBtnShape = imageResources + "volbtn.png";
+
+    /**
+     * The image address of halfVolbtn.
+     */
+    private final String halfVolBtnShape = imageResources + "halfVolbtn.png";
+
+    /**
      * The default constructor.
      * Called before the <i>initialize()</i> method.
      */
@@ -198,17 +238,29 @@ public class MediaPlayerViewController {
             //If not paused, pause.
             if(!paused)
             {
-                playBtn.setStyle("-fx-graphic: url('file:resources/images/playbtn.png'); -fx-padding: 2 4 2 4;");
+                playBtn.setStyle("-fx-graphic: url(" + playBtnShape + "); -fx-padding: 2 4 2 4;");
                 mediaPlayer.pause();
 
             }
             //Otherwise, resume.
             else
             {
-                playBtn.setStyle("-fx-graphic: url('file:resources/images/pausebtn.png'); -fx-padding: 2 4 2 4;");
+                playBtn.setStyle("-fx-graphic: url(" + pauseBtnShape + "); -fx-padding: 2 4 2 4;");
                 mediaPlayer.play();
             }
             this.paused = !paused;
+        }
+    }
+
+    /**
+     * Handles the <i>SpeedUp</i> button click increase 0.1 the speed
+     * rate of media value.
+     */
+    @FXML
+    public void speedUpRequestHandler()
+    {
+        if (mediaPlayer != null){
+            mediaPlayer.setRate(mediaPlayer.getRate()+0.1);
         }
     }
 
@@ -289,11 +341,11 @@ public class MediaPlayerViewController {
             repeat = !repeat;
             if(repeat)
             {
-                repeatBtn.setStyle("-fx-graphic: url('file:resources/images/repeatonebtn.png'); -fx-padding: 2 4 2 4;");
+                repeatBtn.setStyle("-fx-graphic: url(" + repeatoneBtnShape + "); -fx-padding: 2 4 2 4;");
             }
             else
             {
-                repeatBtn.setStyle("-fx-graphic: url('file:resources/images/repeatbtn.png'); -fx-padding: 2 4 2 4;");
+                repeatBtn.setStyle("-fx-graphic: url(" + repeatBtnShape + "); -fx-padding: 2 4 2 4;");
             }
         }
     }
@@ -323,7 +375,7 @@ public class MediaPlayerViewController {
             {
                 mediaPlayer.muteProperty().set(!muted);
                 muted = !muted;
-                volBtn.setStyle("-fx-graphic: url('file:resources/images/mutebtn.png'); -fx-padding: 2 4 2 4;");
+                volBtn.setStyle("-fx-graphic: url(" + muteBtnShape + "); -fx-padding: 2 4 2 4;");
             }
             //Otherwise, demute.
             else
@@ -333,11 +385,11 @@ public class MediaPlayerViewController {
                 //Set the appropriate volume button icon on return, based on current volume.
                 if(volSlider.getValue() > 0.6)
                 {
-                    volBtn.setStyle("-fx-graphic: url('file:resources/images/volbtn.png'); -fx-padding: 2 4 2 4;");
+                    volBtn.setStyle("-fx-graphic: url(" + volBtnShape + "); -fx-padding: 2 4 2 4;");
                 }
                 else if(volSlider.getValue() > 0)
                 {
-                    volBtn.setStyle("-fx-graphic: url('file:resources/images/halfVolbtn.png'); -fx-padding: 2 4 2 4;");
+                    volBtn.setStyle("-fx-graphic: url(" + halfVolBtnShape + "); -fx-padding: 2 4 2 4;");
                 }
             }
         }
@@ -369,7 +421,7 @@ public class MediaPlayerViewController {
         {
             this.current = main.getCurrent().get();
             this.playing = true;
-            playBtn.setStyle("-fx-graphic: url('file:resources/images/pausebtn.png'); -fx-padding: 2 4 2 4;");
+            playBtn.setStyle("-fx-graphic: url(" + pauseBtnShape + "); -fx-padding: 2 4 2 4;");
             media = new Media(playList.get(current).getURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setVolume(volSlider.getValue());
@@ -579,15 +631,15 @@ public class MediaPlayerViewController {
                 }
                 if(newValue.doubleValue() > 0.6)
                 {
-                    volBtn.setStyle("-fx-graphic: url('file:resources/images/volbtn.png'); -fx-padding: 2 4 2 4;");
+                    volBtn.setStyle("-fx-graphic: url(" + volBtnShape + "); -fx-padding: 2 4 2 4;");
                 }
                 else if(newValue.doubleValue() == 0)
                 {
-                    volBtn.setStyle("-fx-graphic: url('file:resources/images/mutebtn.png'); -fx-padding: 2 4 2 4;");
+                    volBtn.setStyle("-fx-graphic: url(" + muteBtnShape + "); -fx-padding: 2 4 2 4;");
                 }
                 else
                 {
-                    volBtn.setStyle("-fx-graphic: url('file:resources/images/halfvolbtn.png'); -fx-padding: 2 4 2 4;");
+                    volBtn.setStyle("-fx-graphic: url(" + halfVolBtnShape + "); -fx-padding: 2 4 2 4;");
                 }
             }
         };

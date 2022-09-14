@@ -49,12 +49,22 @@ public class Main extends Application {
      */
     private IntegerProperty current;
 
+    /**
+     * The Media Player Name.
+     */
+    private final String mediaPlayerName = "Raz Media Player";
+
+    /**
+     * The Version of Media Player.
+     */
+    private final String versionNumber = "v1.0.1";
+
     @Override
     public void start(Stage primaryStage) {
 
         this.current =new SimpleIntegerProperty(0);
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Raz Media Player v1.0.0");
+        this.primaryStage.setTitle(mediaPlayerName + " " + versionNumber);
 
         initRootLayout();
         showMediaPlayerView();
@@ -120,7 +130,7 @@ public class Main extends Application {
 
             // Create the dialog Stage.
             Stage playListStage = new Stage();
-            playListStage.setTitle("Raz Media Player ::: Playlist");
+            playListStage.setTitle(mediaPlayerName + " ::: Playlist");
             playListStage.initModality(Modality.WINDOW_MODAL);
             playListStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
