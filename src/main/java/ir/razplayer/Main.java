@@ -1,5 +1,6 @@
 package ir.razplayer;
 
+import ir.razplayer.view.RazPlayerViewController;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -7,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -67,7 +69,7 @@ public class Main extends Application {
         this.primaryStage.setTitle(mediaPlayerName + " " + versionNumber);
 
         initRootLayout();
-        showMediaPlayerView();
+        showRazPlayerView();
     }
 
     /**
@@ -96,12 +98,35 @@ public class Main extends Application {
     /**
      * Shows the media player inside the root layout.
      */
+    public void showRazPlayerView()
+    {
+        try{
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("RazPlayerView.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(personOverview);
+
+            // Give the controller access to the main app.
+            RazPlayerViewController controller = loader.getController();
+            controller.setMain(this);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Shows the media player inside the root layout.
+     */
     public void showMediaPlayerView()
     {
         try{
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("MediaPlayerView.fxml"));
+            loader.setLocation(Main.class.getResource("mediaPlayerView.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.

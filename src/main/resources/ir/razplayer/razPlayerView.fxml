@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<AnchorPane prefHeight="425.0" prefWidth="640.0" stylesheets="@DefaultSkin.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.razplayer.view.MediaPlayerViewController">
+<AnchorPane prefHeight="425.0" prefWidth="640.0" stylesheets="@RazSkin.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.razplayer.view.RazPlayerViewController">
     <children>
         <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="640.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -19,51 +19,54 @@
                     <children>
                         <ProgressBar fx:id="progBar" maxHeight="10.0" maxWidth="1.7976931348623157E308" minHeight="5.0" progress="0">
                             <VBox.margin>
-                                <Insets bottom="5.0" />
+                                <Insets bottom="5.0" left="5.0" right="5.0" />
                             </VBox.margin>
                         </ProgressBar>
                         <GridPane>
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="0.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="620.0" />
-                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" />
+                                <!--                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="0.0" />-->
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="650.0" />
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <HBox alignment="CENTER" spacing="5.0" GridPane.columnIndex="1">
+                                <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="561.0" spacing="5.0" GridPane.columnIndex="0">
                                     <children>
-                                        <Label fx:id="timeLabel" maxWidth="60.0" minWidth="60.0" />
-                                        <Button fx:id="backBtn" mnemonicParsing="false" onAction="#backRequestHandler" />
+                                        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#openRequestHandler" />
                                         <Button fx:id="playBtn" mnemonicParsing="false" onAction="#playRequestHandler" />
+                                        <Button fx:id="backBtn" mnemonicParsing="false" onAction="#backRequestHandler" />
                                         <Button fx:id="nextBtn" mnemonicParsing="false" onAction="#nextRequestHandler" />
-                                        <Button fx:id="repeatBtn" mnemonicParsing="false" onAction="#repeatRequestHandler" />
-                                        <Button fx:id="pListBtn" mnemonicParsing="false" onAction="#playListRequestHandler" />
                                         <Button fx:id="volBtn" mnemonicParsing="false" onAction="#muteRequestHandler" />
                                         <Slider fx:id="volSlider" blockIncrement="0.1" majorTickUnit="0.5" max="1.0" minorTickCount="5" prefHeight="34.0" prefWidth="83.0" showTickMarks="true" value="0.5">
                                             <padding>
                                                 <Insets top="10.0" />
                                             </padding>
                                         </Slider>
+                                        <Label fx:id="timeNowLabel" minWidth="128.0" maxWidth="128.0" />
+<!--                                        <Label fx:id="timeDividerLabel" maxWidth="8.0" minWidth="8.0" />-->
+<!--                                        <Label fx:id="timeExitLabel" maxWidth="60.0" minWidth="60.0" />-->
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" top="5.0" />
+                                        <Insets bottom="5.0" top="5.0" left="7.0" />
                                     </padding>
                                     <GridPane.margin>
                                         <Insets />
                                     </GridPane.margin>
                                 </HBox>
-                                <Button fx:id="fScreenBtn" mnemonicParsing="false" onAction="#fullScreenRequestHandler" GridPane.columnIndex="2">
+                                <HBox alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="561.0" spacing="5.0" GridPane.columnIndex="1">
+                                    <children>
+                                        <Button fx:id="settingBtn" mnemonicParsing="false" onAction="#settingRequestHandler" />
+                                        <Button fx:id="fScreenBtn" mnemonicParsing="false" onAction="#fullScreenRequestHandler" GridPane.columnIndex="2" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" top="5.0" right="7.0" />
+                                    </padding>
                                     <GridPane.margin>
-                                        <Insets right="5.0" />
+                                        <Insets />
                                     </GridPane.margin>
-                                </Button>
-                                <Button fx:id="addBtn" mnemonicParsing="false" onAction="#openRequestHandler">
-                                    <GridPane.margin>
-                                        <Insets left="5.0" />
-                                    </GridPane.margin>
-                                </Button>
+                                </HBox>
                             </children>
                         </GridPane>
                     </children>
