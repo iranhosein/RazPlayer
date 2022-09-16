@@ -14,6 +14,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -68,19 +69,28 @@ public class RazPlayerViewController {
     private Button settingBtn;
 
     @FXML
+    private Button pListBtn;
+
+    @FXML
+    private Button speedBtn;
+
+    @FXML
     private Label timeNowLabel;
 
     @FXML
-    private Label timeDividerLabel;
+    private Label pListLabel;
 
     @FXML
-    private Label timeExitLabel;
+    private Label speedLabel;
 
     @FXML
     private Slider volSlider;
 
     @FXML
     private AnchorPane userControls;
+
+    @FXML
+    private VBox settingControls;
 
     @FXML
     private AnchorPane spectrumBox;
@@ -94,30 +104,42 @@ public class RazPlayerViewController {
      * The reusable MediaPlayer.
      */
     private MediaPlayer mediaPlayer;
+
     /**
      * The reusable Media.
      */
     private Media media;
+
     /**
      * The iterator for the playlist location. Set by Main.
      */
     private int current;
+
     /**
      * The playback started flag. Initialized to <i>false</i> locally.
      */
     private boolean playing;
+
     /**
      * The playback paused flag. Initialized to <i>false</i> locally.
      */
     private boolean paused;
+
     /**
      * The media mute flag. Initialized to <i>false</i> locally.
      */
     private boolean muted;
+
     /**
      * The UI visibility flag. Initialized to <i>true</i> locally.
      */
     private boolean showUI;
+
+    /**
+     * The Setting UI visibility flag. Initialized to <i>true</i> locally.
+     */
+    private boolean showSetting;
+
     /**
      * The music flag. Initialized to <i>true</i> locally.
      */
@@ -189,6 +211,7 @@ public class RazPlayerViewController {
         this.paused = false;
         this.muted = false;
         this.showUI = true;
+        this.showSetting = false;
         this.music = true;
 
         //Adding tooltips
@@ -199,14 +222,19 @@ public class RazPlayerViewController {
         volBtn.setTooltip(new Tooltip("Toggle Mute"));
         volSlider.setTooltip(new Tooltip("Volume"));
         settingBtn.setTooltip(new Tooltip("Setting"));
+        pListBtn.setTooltip(new Tooltip());
+        speedBtn.setTooltip(new Tooltip());
         fScreenBtn.setTooltip(new Tooltip("Toggle Fullscreen"));
 
 
         progBar.setOnMouseClicked(progBarMouseListener());
         progBar.setOnMouseDragged(progBarMouseListener());
+        progBar.setOnMouseMoved(progBarMouseListener());
 
         userControls.setOnMouseEntered(uIMouseInOutListener());
         userControls.setOnMouseExited(uIMouseInOutListener());
+
+        settingControls.setStyle("visibility: hidden");
 
         volSlider.setValue(0.5);
         volSlider.valueProperty().addListener(volumeSliderChangedListener());
@@ -237,6 +265,15 @@ public class RazPlayerViewController {
             }
             this.paused = !paused;
         }
+    }
+
+    /**
+     * Handles the <i>Playlist</i> button click. Calls to Main to show playlist.
+     */
+    @FXML
+    public void playListRequestHandler()
+    {
+        main.showPlayListView();
     }
 
     /**
@@ -273,12 +310,6 @@ public class RazPlayerViewController {
                 System.out.println("Playing all items in playlist starting with index #" + current);
             }
         }
-//        totalDuration = mediaPlayer.getTotalDuration();
-
-//        System.out.println(totalDuration.toMillis());
-//        Duration value = Duration.millis(mediaPlayer.getTotalDuration().toMillis());
-//        Duration val = Duration.valueOf("88s");
-//        timeExitLabel.setText(ConversionUtils.convertTimeInSeconds((int) val.toSeconds()));
     }
 
     /**
@@ -288,7 +319,8 @@ public class RazPlayerViewController {
     @FXML
     public void backRequestHandler() {
         if (mediaPlayer != null /*&& */) {
-
+            double currentDuration = mediaPlayer.getCurrentTime().toMillis() - 5000.0;
+            mediaPlayer.seek(Duration.millis(currentDuration));
         }
     }
 
@@ -298,8 +330,9 @@ public class RazPlayerViewController {
      */
     @FXML
     public void nextRequestHandler() {
-        if (mediaPlayer != null /*&& */) {
-
+        if (mediaPlayer != null) {
+            double currentDuration = mediaPlayer.getCurrentTime().toMillis() + 5000.0;
+            mediaPlayer.seek(Duration.millis(currentDuration));
         }
     }
 
@@ -309,22 +342,12 @@ public class RazPlayerViewController {
      */
     @FXML
     public void settingRequestHandler() {
-        FileChooser fileChooser = new FileChooser();
-        List<File> files = fileChooser.showOpenMultipleDialog(main.getPrimaryStage());
-        if (files != null) {
-            for (File f : files) {
-                mediaItem = new MediaItem(f.toURI());
-                mediaItem.setTitle(ConversionUtils.convertToFileName((f.toURI())));
-                main.getPlayList().add(mediaItem);
-
-                System.out.println("Added " + f.getName() + " to playlist");
-            }
-            if (!playing) {
-                playAll();
-
-                System.out.println("Playing all items in playlist starting with index #" + current);
-            }
+        if (showSetting) {
+            settingControls.setStyle("visibility: hidden");
+        } else {
+            settingControls.setStyle("visibility: visible");
         }
+        showSetting = !showSetting;
     }
 
     /**
@@ -459,8 +482,7 @@ public class RazPlayerViewController {
         if (!music) {
             if (show) {
                 showUI = SHOW_UI;
-                FadeTransition fadeTransition = new FadeTransition(
-                        Duration.millis(200), userControls);
+                FadeTransition fadeTransition = new FadeTransition(Duration.millis(200), userControls);
                 fadeTransition.setFromValue(0.0);
                 fadeTransition.setToValue(1.0);
                 fadeTransition.play();
@@ -468,13 +490,11 @@ public class RazPlayerViewController {
                 timeLine = new Timeline(new KeyFrame(
                         Duration.millis(HIDE_UI_TIMEOUT), event ->
                 {
-                    FadeTransition fadeTransition = new FadeTransition(
-                            Duration.millis(500), userControls);
+                    FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), userControls);
                     fadeTransition.setFromValue(1.0);
                     fadeTransition.setToValue(0.0);
                     fadeTransition.play();
-                    main.getPrimaryStage().getScene()
-                            .setCursor(Cursor.NONE);
+                    main.getPrimaryStage().getScene().setCursor(Cursor.NONE);
                     showUI = HIDE_UI;
                 }));
                 timeLine.play();
@@ -614,7 +634,7 @@ public class RazPlayerViewController {
 
                     //Console printout for easier testing.
                     System.out.println("Setting media progress to "
-                            + (int) (event.getX() / progBar.getWidth() * 100)
+                            + (int) ((event.getX()+5) / progBar.getWidth() * 100)
                             + " %");
                 }
             }

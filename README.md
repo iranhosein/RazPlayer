@@ -10,6 +10,14 @@ The latest version of Pea Media Player is here: https://github.com/Denethrilien/
 
 # Versions Log
 
+### version 1.0.3 (9/16/2022)
+- Fix click accuracy on progress bar
+- Add feature to 5 seconds forward video
+- Add feature to 5 seconds backward video
+- Add feature to use setting menu
+- Add a UI for setting menu
+
+---
 ### version 1.0.2 (9/16/2022)
 - add new Skin to Raz Media Player
 - decrease delay of pause and play media in Player

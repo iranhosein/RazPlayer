@@ -12,7 +12,63 @@
                 <MediaView fx:id="mediaView" />
             </children>
         </HBox>
+
         <AnchorPane fx:id="userControls" layoutY="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
+            <children>
+                <VBox fx:id="settingControls" alignment="CENTER" onMouseDragReleased="#fullScreenRequestHandler" prefHeight="70.0" prefWidth="640.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0">
+                    <children>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="500.0" />
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="140.0" minWidth="140.0" />
+                            </columnConstraints>
+                            <children>
+                                <VBox fx:id="settingControlsPanel" alignment="CENTER" onMouseDragReleased="#fullScreenRequestHandler" prefHeight="45.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1">
+                                    <children>
+                                        <GridPane>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                                <RowConstraints valignment="BOTTOM" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="561.0" spacing="5.0" GridPane.rowIndex="0">
+                                                    <children>
+                                                        <Button fx:id="speedBtn" mnemonicParsing="false" onAction="#fullScreenRequestHandler" />
+                                                        <!--                                                        <Label fx:id="speedLabel" value="PlayBack Speed" />-->
+                                                    </children>
+                                                    <padding>
+                                                        <Insets left="5.0" bottom="5.0" right="5.0" top="5.0" />
+                                                    </padding>
+                                                    <GridPane.margin>
+                                                        <Insets />
+                                                    </GridPane.margin>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="561.0" spacing="5.0" GridPane.rowIndex="1">
+                                                    <children>
+                                                        <!--                                                        <Button fx:id="pListBtn" mnemonicParsing="false" onAction="#settingRequestHandler" />-->
+                                                        <!--                                                        <Label fx:id="pListLabel" value="PlayList" />-->
+                                                        <!--                                                        <Label fx:id="timeNowLabel" maxWidth="128.0" minWidth="128.0" />-->
+                                                        <Button fx:id="pListBtn" mnemonicParsing="false" onAction="#playListRequestHandler" />
+                                                    </children>
+                                                    <padding>
+                                                        <Insets left="5.0" bottom="5.0" right="5.0" top="5.0" />
+                                                    </padding>
+                                                    <GridPane.margin>
+                                                        <Insets />
+                                                    </GridPane.margin>
+                                                </HBox>
+                                            </children>
+                                        </GridPane>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+
+
             <children>
                 <AnchorPane fx:id="spectrumBox" layoutX="40.0" layoutY="15.0" prefHeight="30.0" prefWidth="128.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" />
                 <VBox alignment="CENTER" onMouseDragReleased="#fullScreenRequestHandler" prefHeight="45.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -25,7 +81,7 @@
                         <GridPane>
                             <columnConstraints>
                                 <!--                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="0.0" />-->
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="650.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="590.0" />
                                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
                             </columnConstraints>
                             <rowConstraints>
@@ -44,12 +100,12 @@
                                                 <Insets top="10.0" />
                                             </padding>
                                         </Slider>
-                                        <Label fx:id="timeNowLabel" minWidth="128.0" maxWidth="128.0" />
+                                        <Label fx:id="timeNowLabel" maxWidth="128.0" minWidth="128.0" />
 <!--                                        <Label fx:id="timeDividerLabel" maxWidth="8.0" minWidth="8.0" />-->
 <!--                                        <Label fx:id="timeExitLabel" maxWidth="60.0" minWidth="60.0" />-->
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" top="5.0" left="7.0" />
+                                        <Insets bottom="5.0" left="7.0" top="5.0" />
                                     </padding>
                                     <GridPane.margin>
                                         <Insets />
@@ -58,10 +114,10 @@
                                 <HBox alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="561.0" spacing="5.0" GridPane.columnIndex="1">
                                     <children>
                                         <Button fx:id="settingBtn" mnemonicParsing="false" onAction="#settingRequestHandler" />
-                                        <Button fx:id="fScreenBtn" mnemonicParsing="false" onAction="#fullScreenRequestHandler" GridPane.columnIndex="2" />
+                                        <Button fx:id="fScreenBtn" mnemonicParsing="false" onAction="#fullScreenRequestHandler" />
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" top="5.0" right="7.0" />
+                                        <Insets bottom="5.0" right="7.0" top="5.0" />
                                     </padding>
                                     <GridPane.margin>
                                         <Insets />
@@ -72,6 +128,7 @@
                     </children>
                 </VBox>
             </children>
+
         </AnchorPane>
     </children>
 </AnchorPane>

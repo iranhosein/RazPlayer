@@ -191,6 +191,16 @@
 	-fx-padding: 2 4 2 4;
 }
 
+#pListBtn{
+    -fx-graphic: url('file:resources/images/plistbtn.png');
+    -fx-padding: 2 4 2 4;
+}
+
+#speedBtn{
+    -fx-graphic: url('file:resources/images/speedbtn.png');
+    -fx-padding: 2 4 2 4;
+}
+
 #fScreenBtn{
 	-fx-graphic: url('file:resources/images/scrnbtn.png');
 	-fx-padding: 2 4 2 4;
@@ -201,6 +211,10 @@
 	-fx-padding: 2 4 2 4;
 }
 
-#timeNowLabel, #timeDividerLabel, #timeExitLabel{
+.label{
 	-fx-text-fill: #5ff000;
+}
+
+#settingControlsPanel{
+    -fx-background-color: #1d1d1d;
 }

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
+
+<AnchorPane prefHeight="425.0" prefWidth="640.0" stylesheets="@RazSkin.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.razplayer.view.RazPlayerViewController">
+    <children>
+        <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="640.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <MediaView fx:id="mediaView" />
+            </children>
+        </HBox>
+
+
+
+
+<!--        <AnchorPane layoutY="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">-->
+<!--            <children>-->
+<!--                <GridPane>-->
+<!--                    <columnConstraints>-->
+<!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" maxWidth="1.7976931348623157E308" prefWidth="460.0" />-->
+<!--                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="140.0" maxWidth="140.0" />-->
+<!--                    </columnConstraints>-->
+<!--                </GridPane>-->
+<!--                <VBox fx:id="settingControls" alignment="CENTER_LEFT" layoutX="500.0" onMouseDragReleased="#fullScreenRequestHandler" prefHeight="70.0" prefWidth="140.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="495.0" AnchorPane.rightAnchor="5.0" GridPane.columnIndex="1">-->
+<!--                    <children>-->
+<!--                        <GridPane>-->
+<!--                            <columnConstraints>-->
+<!--                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" />-->
+<!--                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" />-->
+<!--                            </columnConstraints>-->
+<!--                            <rowConstraints>-->
+<!--                                <RowConstraints maxHeight="35.0" minHeight="35.0" vgrow="SOMETIMES" />-->
+<!--                                <RowConstraints maxHeight="35.0" minHeight="35.0" valignment="BOTTOM" />-->
+<!--                            </rowConstraints>-->
+<!--                            <children>-->
+<!--                                <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">-->
+<!--                                    <children>-->
+<!--                                        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#openRequestHandler" />-->
+<!--                                        <Label fx:id="speedLabel" maxWidth="60.0" />-->
+<!--                                    </children>-->
+<!--                                    <padding>-->
+<!--                                        <Insets bottom="5.0" left="5.0" top="5.0" />-->
+<!--                                    </padding>-->
+<!--                                    <GridPane.margin>-->
+<!--                                        <Insets />-->
+<!--                                    </GridPane.margin>-->
+<!--                                </HBox>-->
+<!--                                <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="40.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">-->
+<!--                                    <children>-->
+<!--                                        <Label fx:id="speedLabel" maxWidth="25.0" />-->
+<!--                                        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#openRequestHandler" />-->
+<!--                                    </children>-->
+<!--                                    <padding>-->
+<!--                                        <Insets bottom="5.0" right="5.0" top="5.0" />-->
+<!--                                    </padding>-->
+<!--                                    <GridPane.margin>-->
+<!--                                        <Insets />-->
+<!--                                    </GridPane.margin>-->
+<!--                                </HBox>-->
+<!--                                <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">-->
+<!--                                    <children>-->
+<!--                                        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#openRequestHandler" />-->
+<!--                                        <Label fx:id="speedLabel" maxWidth="60.0" />-->
+<!--                                    </children>-->
+<!--                                    <padding>-->
+<!--                                        <Insets bottom="5.0" left="5.0" top="5.0" />-->
+<!--                                    </padding>-->
+<!--                                    <GridPane.margin>-->
+<!--                                        <Insets />-->
+<!--                                    </GridPane.margin>-->
+<!--                                </HBox>-->
+<!--                                <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="40.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">-->
+<!--                                    <children>-->
+<!--                                        <Label fx:id="speedLabel" maxWidth="25.0" />-->
+<!--                                        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#openRequestHandler" />-->
+<!--                                    </children>-->
+<!--                                    <padding>-->
+<!--                                        <Insets bottom="5.0" right="5.0" top="5.0" />-->
+<!--                                    </padding>-->
+<!--                                    <GridPane.margin>-->
+<!--                                        <Insets />-->
+<!--                                    </GridPane.margin>-->
+<!--                                </HBox>-->
+<!--                            </children>-->
+<!--                        </GridPane>-->
+<!--                    </children>-->
+<!--                </VBox>-->
+<!--            </children>-->
+<!--        </AnchorPane>-->
+
+
+
+
+
+
+
+
+
+
+        <AnchorPane layoutY="380.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <VBox alignment="CENTER" onMouseDragReleased="#fullScreenRequestHandler" prefHeight="70.0" prefWidth="640.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0">
+                    <children>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="500.0" />
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="140.0" minWidth="140.0" />
+                            </columnConstraints>
+                            <children>
+                                <VBox fx:id="settingControls" alignment="CENTER" onMouseDragReleased="#fullScreenRequestHandler" prefHeight="45.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1">
+                                    <children>
+                                        <GridPane>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                                <RowConstraints valignment="BOTTOM" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="561.0" spacing="5.0" GridPane.rowIndex="0">
+                                                    <children>
+                                                        <Button fx:id="speedBtn" mnemonicParsing="false" onAction="#fullScreenRequestHandler" />
+<!--                                                        <Label fx:id="speedLabel" value="PlayBack Speed" />-->
+                                                    </children>
+                                                    <padding>
+                                                        <Insets left="5.0" bottom="5.0" right="5.0" top="5.0" />
+                                                    </padding>
+                                                    <GridPane.margin>
+                                                        <Insets />
+                                                    </GridPane.margin>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="561.0" spacing="5.0" GridPane.rowIndex="1">
+                                                    <children>
+<!--                                                        <Button fx:id="pListBtn" mnemonicParsing="false" onAction="#settingRequestHandler" />-->
+<!--                                                        <Label fx:id="pListLabel" value="PlayList" />-->
+<!--                                                        <Label fx:id="timeNowLabel" maxWidth="128.0" minWidth="128.0" />-->
+                                                        <Button fx:id="pListBtn" mnemonicParsing="false" onAction="#playListRequestHandler" />
+                                                    </children>
+                                                    <padding>
+                                                        <Insets left="5.0" bottom="5.0" right="5.0" top="5.0" />
+                                                    </padding>
+                                                    <GridPane.margin>
+                                                        <Insets />
+                                                    </GridPane.margin>
+                                                </HBox>
+                                            </children>
+                                        </GridPane>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <AnchorPane fx:id="userControls" layoutY="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <AnchorPane fx:id="spectrumBox" layoutX="40.0" layoutY="15.0" prefHeight="30.0" prefWidth="128.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" />
+                <VBox alignment="CENTER" onMouseDragReleased="#fullScreenRequestHandler" prefHeight="45.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <ProgressBar fx:id="progBar" maxHeight="10.0" maxWidth="1.7976931348623157E308" minHeight="5.0" progress="0">
+                            <VBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                            </VBox.margin>
+                        </ProgressBar>
+                        <GridPane>
+                            <columnConstraints>
+                                <!--                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="0.0" />-->
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="590.0" />
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="561.0" spacing="5.0" GridPane.columnIndex="0">
+                                    <children>
+                                        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#openRequestHandler" />
+                                        <Button fx:id="playBtn" mnemonicParsing="false" onAction="#playRequestHandler" />
+                                        <Button fx:id="backBtn" mnemonicParsing="false" onAction="#backRequestHandler" />
+                                        <Button fx:id="nextBtn" mnemonicParsing="false" onAction="#nextRequestHandler" />
+                                        <Button fx:id="volBtn" mnemonicParsing="false" onAction="#muteRequestHandler" />
+                                        <Slider fx:id="volSlider" blockIncrement="0.1" majorTickUnit="0.5" max="1.0" minorTickCount="5" prefHeight="34.0" prefWidth="83.0" showTickMarks="true" value="0.5">
+                                            <padding>
+                                                <Insets top="10.0" />
+                                            </padding>
+                                        </Slider>
+                                        <Label fx:id="timeNowLabel" maxWidth="128.0" minWidth="128.0" />
+<!--                                        <Label fx:id="timeDividerLabel" maxWidth="8.0" minWidth="8.0" />-->
+<!--                                        <Label fx:id="timeExitLabel" maxWidth="60.0" minWidth="60.0" />-->
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="7.0" top="5.0" />
+                                    </padding>
+                                    <GridPane.margin>
+                                        <Insets />
+                                    </GridPane.margin>
+                                </HBox>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="561.0" spacing="5.0" GridPane.columnIndex="1">
+                                    <children>
+                                        <Button fx:id="settingBtn" mnemonicParsing="false" onAction="#settingRequestHandler" />
+                                        <Button fx:id="fScreenBtn" mnemonicParsing="false" onAction="#fullScreenRequestHandler" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" right="7.0" top="5.0" />
+                                    </padding>
+                                    <GridPane.margin>
+                                        <Insets />
+                                    </GridPane.margin>
+                                </HBox>
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
