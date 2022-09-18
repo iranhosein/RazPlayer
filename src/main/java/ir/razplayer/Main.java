@@ -59,7 +59,7 @@ public class Main extends Application {
     /**
      * The Version of Media Player.
      */
-    private final String versionNumber = "v1.0.1";
+    private final String versionNumber = "v1.0.4";
 
     @Override
     public void start(Stage primaryStage) {
@@ -67,6 +67,10 @@ public class Main extends Application {
         this.current =new SimpleIntegerProperty(0);
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle(mediaPlayerName + " " + versionNumber);
+
+        //Attach the icon to the stage/window
+        Image icon = new Image("file:resources/images/logo.png");
+        this.primaryStage.getIcons().add(icon);
 
         initRootLayout();
         showRazPlayerView();
@@ -155,6 +159,7 @@ public class Main extends Application {
 
             // Create the dialog Stage.
             Stage playListStage = new Stage();
+
             playListStage.setTitle(mediaPlayerName + " ::: Playlist");
             playListStage.initModality(Modality.WINDOW_MODAL);
             playListStage.initOwner(primaryStage);

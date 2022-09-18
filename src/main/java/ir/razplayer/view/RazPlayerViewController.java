@@ -12,8 +12,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.Media;
@@ -26,7 +29,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The Controller for the MediaPlayerView. Contains the UI functionality and
@@ -69,19 +71,37 @@ public class RazPlayerViewController {
     private Button settingBtn;
 
     @FXML
-    private Button pListBtn;
+    private HBox playListSection;
 
     @FXML
-    private Button speedBtn;
+    private HBox speedSection;
+
+    @FXML
+    private HBox section0_25;
+
+    @FXML
+    private HBox section0_50;
+
+    @FXML
+    private HBox section0_75;
+
+    @FXML
+    private HBox section1_00;
+
+    @FXML
+    private HBox section1_25;
+
+    @FXML
+    private HBox section1_50;
+
+    @FXML
+    private HBox section1_75;
+
+    @FXML
+    private HBox section2_00;
 
     @FXML
     private Label timeNowLabel;
-
-    @FXML
-    private Label pListLabel;
-
-    @FXML
-    private Label speedLabel;
 
     @FXML
     private Slider volSlider;
@@ -93,7 +113,13 @@ public class RazPlayerViewController {
     private VBox settingControls;
 
     @FXML
+    private VBox speedControls;
+
+    @FXML
     private AnchorPane spectrumBox;
+
+    @FXML
+    private Label rateLabel;
 
     /**
      * A single MediaItem object.
@@ -136,9 +162,14 @@ public class RazPlayerViewController {
     private boolean showUI;
 
     /**
-     * The Setting UI visibility flag. Initialized to <i>true</i> locally.
+     * The Setting UI visibility flag. Initialized to <i>false</i> locally.
      */
     private boolean showSetting;
+
+    /**
+     * The Speed's panel UI visibility flag. Initialized to <i>false</i> locally.
+     */
+    private boolean showSpeed;
 
     /**
      * The music flag. Initialized to <i>true</i> locally.
@@ -149,6 +180,11 @@ public class RazPlayerViewController {
      * Reference to the main application.
      */
     private Main main;
+
+    /**
+     * The speed of media.
+     */
+    private double rate;
 
     /**
      * The Timeline for use as a delay timer.
@@ -213,6 +249,7 @@ public class RazPlayerViewController {
         this.showUI = true;
         this.showSetting = false;
         this.music = true;
+        this.rate = 1.0;
 
         //Adding tooltips
         addBtn.setTooltip(new Tooltip("Open..."));
@@ -222,20 +259,111 @@ public class RazPlayerViewController {
         volBtn.setTooltip(new Tooltip("Toggle Mute"));
         volSlider.setTooltip(new Tooltip("Volume"));
         settingBtn.setTooltip(new Tooltip("Setting"));
-        pListBtn.setTooltip(new Tooltip());
-        speedBtn.setTooltip(new Tooltip());
+//        pListBtn.setTooltip(new Tooltip());
         fScreenBtn.setTooltip(new Tooltip("Toggle Fullscreen"));
 
-
+        // set mouse's event for progress bar
         progBar.setOnMouseClicked(progBarMouseListener());
         progBar.setOnMouseDragged(progBarMouseListener());
         progBar.setOnMouseMoved(progBarMouseListener());
 
+        // set mouse's event for user controls
         userControls.setOnMouseEntered(uIMouseInOutListener());
         userControls.setOnMouseExited(uIMouseInOutListener());
 
-        settingControls.setStyle("visibility: hidden");
+        // set visibility of setting controls
+        settingControls.setVisible(HIDE_UI);
+        speedControls.setVisible(HIDE_UI);
+//        settingControls.setStyle("visibility: hidden");
 
+
+        Image arrowImage = new Image("file:resources/images/arrowbtn.png");
+        ImageView arrowImg = new ImageView(arrowImage);
+        arrowImg.setFitWidth(9);
+        arrowImg.setFitHeight(9);
+
+
+        ImageView arrowImg2 = new ImageView(arrowImage);
+        arrowImg2.setFitHeight(9);
+        arrowImg2.setFitWidth(9);
+
+        Image image = new Image("file:resources/images/speedbtn.png");
+        ImageView img = new ImageView(image);
+        img.setFitWidth(13);
+        img.setFitHeight(13);
+        speedSection.getChildren().add(img);
+        Label speedLabel = new Label("Playback Speed");
+        speedLabel.setStyle("-fx-font-size: 9; -fx-padding: 0 10 0 0");
+        speedSection.getChildren().add(speedLabel);
+        this.rateLabel = new Label(Double.toString(this.rate));
+        rateLabel.setStyle("-fx-font-size: 10;");
+//        numberLabel.setStyle("-fx-padding: 5");
+        speedSection.getChildren().add(rateLabel);
+        speedSection.getChildren().add(arrowImg);
+        speedSection.setOnMouseClicked(speedSectionMouseListener());
+
+        image = new Image("file:resources/images/plistbtn.png");
+        img = new ImageView(image);
+        img.setFitHeight(13);
+        img.setFitWidth(13);
+        Label pListLabel = new Label("playList");
+        pListLabel.setStyle("-fx-font-size: 9; -fx-padding: 0 61 0 0");
+        playListSection.getChildren().add(img);
+        playListSection.getChildren().add(pListLabel);
+        playListSection.getChildren().add(arrowImg2);
+        playListSection.setOnMouseClicked(playListSectionMouseListener());
+
+        Label label0_25 = new Label("0.25");
+        label0_25.setStyle("-fx-font-size: 9");
+        section0_25.getChildren().add(label0_25);
+        section0_25.setOnMouseClicked(rateMediaMouseListener(0.25));
+
+        Label label0_50 = new Label("0.50");
+        label0_50.setStyle("-fx-font-size: 9");
+        section0_50.getChildren().add(label0_50);
+        section0_50.setOnMouseClicked(rateMediaMouseListener(0.50));
+
+        Label label0_75 = new Label("0.75");
+        label0_75.setStyle("-fx-font-size: 9");
+        section0_75.getChildren().add(label0_75);
+        section0_75.setOnMouseClicked(rateMediaMouseListener(0.75));
+
+        Label label1_00 = new Label("1.00");
+        label1_00.setStyle("-fx-font-size: 9");
+        section1_00.getChildren().add(label1_00);
+        section1_00.setOnMouseClicked(rateMediaMouseListener(1.00));
+
+        Label label1_25 = new Label("1.25");
+        label1_25.setStyle("-fx-font-size: 9");
+        section1_25.getChildren().add(label1_25);
+        section1_25.setOnMouseClicked(rateMediaMouseListener(1.25));
+
+        Label label1_50 = new Label("1.50");
+        label1_50.setStyle("-fx-font-size: 9");
+        section1_50.getChildren().add(label1_50);
+        section1_50.setOnMouseClicked(rateMediaMouseListener(1.50));
+
+        Label label1_75 = new Label("1.75");
+        label1_75.setStyle("-fx-font-size: 9");
+        section1_75.getChildren().add(label1_75);
+        section1_75.setOnMouseClicked(rateMediaMouseListener(1.75));
+
+        Label label2_00 = new Label("2.00");
+        label2_00.setStyle("-fx-font-size: 9");
+        section2_00.getChildren().add(label2_00);
+        section2_00.setOnMouseClicked(rateMediaMouseListener(2.00));
+
+
+
+
+
+
+
+
+
+
+
+        // set volume slider
         volSlider.setValue(0.5);
         volSlider.valueProperty().addListener(volumeSliderChangedListener());
     }
@@ -268,22 +396,14 @@ public class RazPlayerViewController {
     }
 
     /**
-     * Handles the <i>Playlist</i> button click. Calls to Main to show playlist.
-     */
-    @FXML
-    public void playListRequestHandler()
-    {
-        main.showPlayListView();
-    }
-
-    /**
-     * Handles the <i>SpeedUp</i> button click increase 0.1 the speed
+     * Handles the speed of media with give number of speed as double
      * rate of media value.
      */
-    @FXML
-    public void speedUpRequestHandler() {
+    private void rateMedia(double rate) {
         if (mediaPlayer != null) {
-            mediaPlayer.setRate(mediaPlayer.getRate() + 0.1);
+            mediaPlayer.setRate(rate);
+            this.rate = rate;
+            rateLabel.setText(Double.toString(rate));
         }
     }
 
@@ -337,17 +457,42 @@ public class RazPlayerViewController {
     }
 
     /**
-     * Handles the <i>Fullscreen</i> button click. Each click reverses the
-     * current fullscreen status of the primary stage.
+     * Handles the <i>SettingBtn</i> button click. Each click reverses the
+     * current show setting menu status.
      */
     @FXML
     public void settingRequestHandler() {
         if (showSetting) {
-            settingControls.setStyle("visibility: hidden");
+            settingControls.setVisible(HIDE_UI);
+            showSetting = HIDE_UI;
+        } else if (showSpeed) {
+            speedControls.setVisible(HIDE_UI);
+            showSpeed = HIDE_UI;
         } else {
-            settingControls.setStyle("visibility: visible");
+            settingControls.setVisible(SHOW_UI);
+            showSetting = SHOW_UI;
         }
-        showSetting = !showSetting;
+    }
+
+    /**
+     * Handles the speedSection click. When click, setting menu will close
+     * and speed menu will open.
+     */
+    public void speedHandler() {
+        settingControls.setVisible(HIDE_UI);
+        showSetting = HIDE_UI;
+        speedControls.setVisible(SHOW_UI);
+        showSpeed = SHOW_UI;
+    }
+
+    /**
+     * Handles the playListSection click. When click, setting menu will close
+     * and playList window will open.
+     */
+    public void playListHandler() {
+        settingControls.setVisible(HIDE_UI);
+        showSetting = HIDE_UI;
+        main.showPlayListView();
     }
 
     /**
@@ -479,7 +624,7 @@ public class RazPlayerViewController {
      * @param show the boolean. True fades in controls, false fades out.
      */
     private void toggleUI(boolean show) {
-        if (!music) {
+        if (!music && !showSetting && !showSpeed) {
             if (show) {
                 showUI = SHOW_UI;
                 FadeTransition fadeTransition = new FadeTransition(Duration.millis(200), userControls);
@@ -613,6 +758,66 @@ public class RazPlayerViewController {
             }
         };
         return progressChangeListener;
+    }
+
+    /**
+     * Listens for left mouse button click or drag action on the speed section. Reacts
+     * by calling settingRequestHandler.
+     *
+     * @return {@code EventHandler<MouseEvent>}
+     */
+    private EventHandler<MouseEvent> speedSectionMouseListener() {
+        return new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (mediaPlayer == null) {
+                    event.consume();
+                } else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED
+                        || event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+                    speedHandler();
+                }
+            }
+        };
+    }
+
+    /**
+     * Listens for left mouse button click or drag action on the playList section. Reacts
+     * by calling settingRequestHandler.
+     *
+     * @return {@code EventHandler<MouseEvent>}
+     */
+    private EventHandler<MouseEvent> playListSectionMouseListener() {
+        return new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getEventType() == MouseEvent.MOUSE_DRAGGED
+                        || event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+                    playListHandler();
+                }
+            }
+        };
+    }
+
+    /**
+     * Listens for left mouse button click or drag action on the number of speed section. Reacts
+     * by calling settingRequestHandler.
+     *
+     * @return {@code EventHandler<MouseEvent>}
+     */
+    private EventHandler<MouseEvent> rateMediaMouseListener(double rate) {
+        return new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getEventType() == MouseEvent.MOUSE_DRAGGED
+                        || event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+                    rateMedia(rate);
+                    speedControls.setVisible(HIDE_UI);
+                    showSpeed = HIDE_UI;
+                    settingControls.setVisible(SHOW_UI);
+                    showSetting = SHOW_UI;
+                }
+            }
+        };
     }
 
     /**

@@ -191,16 +191,6 @@
 	-fx-padding: 2 4 2 4;
 }
 
-#pListBtn{
-    -fx-graphic: url('file:resources/images/plistbtn.png');
-    -fx-padding: 2 4 2 4;
-}
-
-#speedBtn{
-    -fx-graphic: url('file:resources/images/speedbtn.png');
-    -fx-padding: 2 4 2 4;
-}
-
 #fScreenBtn{
 	-fx-graphic: url('file:resources/images/scrnbtn.png');
 	-fx-padding: 2 4 2 4;
@@ -215,6 +205,34 @@
 	-fx-text-fill: #5ff000;
 }
 
-#settingControlsPanel{
+#settingControlsPanel, #speedControlsPanel{
     -fx-background-color: #1d1d1d;
+}
+
+#speedSection, #playListSection {
+    -fx-padding: 2 5 2 5;
+}
+
+#speedSection:hover, #playListSection:hover {
+    -fx-padding: 1 4 1 4;
+    -fx-border-color: linear-gradient(from 25% 25% to 100% 100%, #5ff000, #00ff00);
+    -fx-border-width: 1;
+}
+
+#speedSection:pressed, #playListSection:pressed, #speedSection:default:hover:pressed, #playListSection:default:hover:pressed {
+    -fx-background-color: #000000;
+}
+
+#section0_25, #section0_50, #section0_75, #section1_00, #section1_25, #section1_50, #section1_75, #section2_00 {
+    -fx-padding: 2 5 2 5;
+}
+
+#section0_25:hover, #section0_50:hover, #section0_75:hover, #section1_00:hover, #section1_25:hover, #section1_50:hover, #section1_75:hover, #section2_00:hover {
+    -fx-padding: 1 4 1 4;
+    -fx-border-color: linear-gradient(from 25% 25% to 100% 100%, #5ff000, #00ff00);
+    -fx-border-width: 1;
+}
+
+#section0_25:pressed, #section0_50:pressed, #section0_75:pressed, #section1_00:pressed, #section1_25:pressed, #section1_50:pressed, #section1_75:pressed, #section2_00:pressed, #section0_25:default:hover:pressed, #section0_50:default:hover:pressed, #section0_75:default:hover:pressed, #section1_00:default:hover:pressed, #section1_25:default:hover:pressed, #section1_50:default:hover:pressed, #section1_75:default:hover:pressed, #section2_00:default:hover:pressed {
+    -fx-background-color: #000000;
 }

@@ -10,6 +10,15 @@ The latest version of Pea Media Player is here: https://github.com/Denethrilien/
 
 # Versions Log
 
+### version 1.0.4 (9/18/2022)
+- change system to show setting menu
+- change the UI of setting menu
+- add back code for setting menu
+- add speed menu UI
+- add back code for speed menu
+- add logo to app
+
+---
 ### version 1.0.3 (9/16/2022)
 - Fix click accuracy on progress bar
 - Add feature to 5 seconds forward video
