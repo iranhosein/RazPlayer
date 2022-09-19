@@ -164,12 +164,12 @@
 }
 
 #addBtn{
-	-fx-graphic: url('file:resources/images/openbtn.png');
+	-fx-graphic: url('images/openbtn.png');
 	-fx-padding: 2 4 2 4;
 }
 
 #backBtn{
-	-fx-graphic: url('file:resources/images/bckbtn.png');
+	-fx-graphic: url('images/bckbtn.png');
 	-fx-padding: 2 4 2 4;
 }
 /* 
@@ -177,27 +177,27 @@
  * play/pause functionality implemented in controller.
  */
 #playBtn{
-	-fx-graphic: url('file:resources/images/playbtn.png');
+	-fx-graphic: url('images/playbtn.png');
 	-fx-padding: 2 4 2 4;
 }
 
 #nextBtn{
-	-fx-graphic: url('file:resources/images/fwdbtn.png');
+	-fx-graphic: url('images/fwdbtn.png');
 	-fx-padding: 2 4 2 4;
 }
 
 #settingBtn{
-	-fx-graphic: url('file:resources/images/settingbtn.png');
+	-fx-graphic: url('images/settingbtn.png');
 	-fx-padding: 2 4 2 4;
 }
 
 #fScreenBtn{
-	-fx-graphic: url('file:resources/images/scrnbtn.png');
+	-fx-graphic: url('images/scrnbtn.png');
 	-fx-padding: 2 4 2 4;
 }
 
 #volBtn{
-	-fx-graphic: url('file:resources/images/halfvolbtn.png');
+	-fx-graphic: url('images/halfvolbtn.png');
 	-fx-padding: 2 4 2 4;
 }
 

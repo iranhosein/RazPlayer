@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<AnchorPane prefHeight="425.0" prefWidth="640.0" stylesheets="@RazSkin.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.razplayer.view.RazPlayerViewController">
+<AnchorPane fx:id="playerWindow" prefHeight="425.0" prefWidth="640.0" stylesheets="@RazSkin.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.razplayer.view.RazPlayerViewController">
     <children>
         <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="640.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>

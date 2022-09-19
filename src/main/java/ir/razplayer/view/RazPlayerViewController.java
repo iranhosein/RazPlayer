@@ -14,7 +14,10 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -42,6 +45,9 @@ public class RazPlayerViewController {
     private static final boolean SHOW_UI = true;
     private static final boolean HIDE_UI = false;
     private static final String[] MUSIC = {".MP3", ".WAV"};
+
+    @FXML
+    private AnchorPane playerWindow;
 
     @FXML
     private MediaView mediaView;
@@ -194,7 +200,7 @@ public class RazPlayerViewController {
     /**
      * The Address source of images.
      */
-    private final String imageResources = "file:resources/images/";
+    private final String imageResources = String.valueOf(Main.class.getResource("images"));
 
     /**
      * The image address of playbtn.
@@ -205,11 +211,6 @@ public class RazPlayerViewController {
      * The image address of pausebtn.
      */
     private final String pauseBtnShape = imageResources + "pausebtn.png";
-
-    /**
-     * The image address of settingbtn.
-     */
-    private final String settingBtnShape = imageResources + "settingbtn.png";
 
     /**
      * The image address of mutebtn.
@@ -249,35 +250,48 @@ public class RazPlayerViewController {
         this.showUI = true;
         this.showSetting = false;
         this.music = true;
-        this.rate = 1.0;
+        if (rate == 0.0)
+            rate = 1.0;
+
 
         //Adding tooltips
-        addBtn.setTooltip(new Tooltip("Open..."));
-        playBtn.setTooltip(new Tooltip("Play / Pause"));
-        backBtn.setTooltip(new Tooltip("5 Sec Back"));
-        nextBtn.setTooltip(new Tooltip("5 Sec Next"));
-        volBtn.setTooltip(new Tooltip("Toggle Mute"));
+        addBtn.setTooltip(new Tooltip("Open...(O)"));
+        playBtn.setTooltip(new Tooltip("Play/Pause(K)"));
+        backBtn.setTooltip(new Tooltip("5 Sec Back(J)"));
+        nextBtn.setTooltip(new Tooltip("5 Sec Next(L)"));
+        volBtn.setTooltip(new Tooltip("Toggle Mute(M)"));
         volSlider.setTooltip(new Tooltip("Volume"));
-        settingBtn.setTooltip(new Tooltip("Setting"));
+        settingBtn.setTooltip(new Tooltip("Setting(S)"));
 //        pListBtn.setTooltip(new Tooltip());
-        fScreenBtn.setTooltip(new Tooltip("Toggle Fullscreen"));
+        fScreenBtn.setTooltip(new Tooltip("Toggle Fullscreen(F)"));
+
+        // set keyboard's event for player window
+        playerWindow.addEventFilter(KeyEvent.KEY_PRESSED, keyRequestHandler());
+
+//        // set touch's event for player window
+//        playerWindow.addEventFilter(TouchEvent.TOUCH_PRESSED, touchRequestHandler());
+//        playerWindow.addEventFilter(TouchEvent.TOUCH_RELEASED, touchRequestHandler());
+//        playerWindow.addEventFilter(TouchEvent.TOUCH_MOVED, touchRequestHandler());
 
         // set mouse's event for progress bar
         progBar.setOnMouseClicked(progBarMouseListener());
+        progBar.setOnTouchPressed(progBarTouchListener());
         progBar.setOnMouseDragged(progBarMouseListener());
         progBar.setOnMouseMoved(progBarMouseListener());
+        progBar.setOnTouchMoved(progBarTouchListener());
 
         // set mouse's event for user controls
         userControls.setOnMouseEntered(uIMouseInOutListener());
+        userControls.setOnTouchPressed(uITouchInOutListener());
         userControls.setOnMouseExited(uIMouseInOutListener());
+        userControls.setOnTouchReleased(uITouchInOutListener());
 
         // set visibility of setting controls
         settingControls.setVisible(HIDE_UI);
         speedControls.setVisible(HIDE_UI);
-//        settingControls.setStyle("visibility: hidden");
 
 
-        Image arrowImage = new Image("file:resources/images/arrowbtn.png");
+        Image arrowImage = new Image(imageResources + "arrowbtn.png");
         ImageView arrowImg = new ImageView(arrowImage);
         arrowImg.setFitWidth(9);
         arrowImg.setFitHeight(9);
@@ -287,7 +301,7 @@ public class RazPlayerViewController {
         arrowImg2.setFitHeight(9);
         arrowImg2.setFitWidth(9);
 
-        Image image = new Image("file:resources/images/speedbtn.png");
+        Image image = new Image(imageResources + "speedbtn.png");
         ImageView img = new ImageView(image);
         img.setFitWidth(13);
         img.setFitHeight(13);
@@ -297,12 +311,12 @@ public class RazPlayerViewController {
         speedSection.getChildren().add(speedLabel);
         this.rateLabel = new Label(Double.toString(this.rate));
         rateLabel.setStyle("-fx-font-size: 10;");
-//        numberLabel.setStyle("-fx-padding: 5");
         speedSection.getChildren().add(rateLabel);
         speedSection.getChildren().add(arrowImg);
         speedSection.setOnMouseClicked(speedSectionMouseListener());
+        speedSection.setOnTouchPressed(speedSectionTouchListener());
 
-        image = new Image("file:resources/images/plistbtn.png");
+        image = new Image(imageResources + "plistbtn.png");
         img = new ImageView(image);
         img.setFitHeight(13);
         img.setFitWidth(13);
@@ -312,56 +326,55 @@ public class RazPlayerViewController {
         playListSection.getChildren().add(pListLabel);
         playListSection.getChildren().add(arrowImg2);
         playListSection.setOnMouseClicked(playListSectionMouseListener());
+        playListSection.setOnTouchPressed(playListSectionTouchListener());
 
         Label label0_25 = new Label("0.25");
         label0_25.setStyle("-fx-font-size: 9");
         section0_25.getChildren().add(label0_25);
         section0_25.setOnMouseClicked(rateMediaMouseListener(0.25));
+        section0_25.setOnTouchPressed(rateMediaTouchListener(0.25));
 
         Label label0_50 = new Label("0.50");
         label0_50.setStyle("-fx-font-size: 9");
         section0_50.getChildren().add(label0_50);
         section0_50.setOnMouseClicked(rateMediaMouseListener(0.50));
+        section0_50.setOnTouchPressed(rateMediaTouchListener(0.50));
 
         Label label0_75 = new Label("0.75");
         label0_75.setStyle("-fx-font-size: 9");
         section0_75.getChildren().add(label0_75);
         section0_75.setOnMouseClicked(rateMediaMouseListener(0.75));
+        section0_75.setOnTouchPressed(rateMediaTouchListener(0.75));
 
         Label label1_00 = new Label("1.00");
         label1_00.setStyle("-fx-font-size: 9");
         section1_00.getChildren().add(label1_00);
         section1_00.setOnMouseClicked(rateMediaMouseListener(1.00));
+        section1_00.setOnTouchPressed(rateMediaTouchListener(1.00));
 
         Label label1_25 = new Label("1.25");
         label1_25.setStyle("-fx-font-size: 9");
         section1_25.getChildren().add(label1_25);
         section1_25.setOnMouseClicked(rateMediaMouseListener(1.25));
+        section1_25.setOnTouchPressed(rateMediaTouchListener(1.25));
 
         Label label1_50 = new Label("1.50");
         label1_50.setStyle("-fx-font-size: 9");
         section1_50.getChildren().add(label1_50);
         section1_50.setOnMouseClicked(rateMediaMouseListener(1.50));
+        section1_50.setOnTouchPressed(rateMediaTouchListener(1.50));
 
         Label label1_75 = new Label("1.75");
         label1_75.setStyle("-fx-font-size: 9");
         section1_75.getChildren().add(label1_75);
         section1_75.setOnMouseClicked(rateMediaMouseListener(1.75));
+        section1_75.setOnTouchPressed(rateMediaTouchListener(1.75));
 
         Label label2_00 = new Label("2.00");
         label2_00.setStyle("-fx-font-size: 9");
         section2_00.getChildren().add(label2_00);
         section2_00.setOnMouseClicked(rateMediaMouseListener(2.00));
-
-
-
-
-
-
-
-
-
-
+        section2_00.setOnTouchPressed(rateMediaTouchListener(2.00));
 
         // set volume slider
         volSlider.setValue(0.5);
@@ -399,7 +412,7 @@ public class RazPlayerViewController {
      * Handles the speed of media with give number of speed as double
      * rate of media value.
      */
-    private void rateMedia(double rate) {
+    private void setRateMedia(double rate) {
         if (mediaPlayer != null) {
             mediaPlayer.setRate(rate);
             this.rate = rate;
@@ -514,14 +527,10 @@ public class RazPlayerViewController {
         if (mediaPlayer != null) {
             //If not currently muted, then mute.
             if (!muted) {
-                mediaPlayer.muteProperty().set(!muted);
-                muted = !muted;
                 volBtn.setStyle("-fx-graphic: url(" + muteBtnShape + "); -fx-padding: 2 4 2 4;");
             }
             //Otherwise, demute.
             else {
-                mediaPlayer.muteProperty().set(!muted);
-                muted = !muted;
                 //Set the appropriate volume button icon on return, based on current volume.
                 if (volSlider.getValue() > 0.6) {
                     volBtn.setStyle("-fx-graphic: url(" + volBtnShape + "); -fx-padding: 2 4 2 4;");
@@ -529,6 +538,8 @@ public class RazPlayerViewController {
                     volBtn.setStyle("-fx-graphic: url(" + halfVolBtnShape + "); -fx-padding: 2 4 2 4;");
                 }
             }
+            mediaPlayer.muteProperty().set(!muted);
+            muted = !muted;
         }
     }
 
@@ -551,8 +562,10 @@ public class RazPlayerViewController {
             media = new Media(playList.get(current).getURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setVolume(volSlider.getValue());
+            mediaPlayer.seek(Duration.ZERO); //////////////////////////////////////////////////////
             mediaView.setMediaPlayer(mediaPlayer);
             mediaView.setFitWidth(main.getPrimaryStage().getScene().getWidth());
+            setRateMedia(rate);           ////////////////////////////////////////////////////////
 
             for (String s : MUSIC) {
                 if (s.equalsIgnoreCase(ConversionUtils.convertToFileExtension(playList
@@ -577,10 +590,11 @@ public class RazPlayerViewController {
                 public void run() {
                     mediaPlayer.stop();
                     current++;
-                    main.getCurrent().set(current);
                     if (current == playList.size()) {
                         current = 0;
+                        playRequestHandler();
                     }
+                    main.getCurrent().set(current);
                     playAll();
                 }
             });
@@ -746,22 +760,19 @@ public class RazPlayerViewController {
             public void changed(
                     ObservableValue<? extends Duration> observableValue,
                     Duration oldValue, Duration newValue) {
-                        progBar.setProgress(1.0
-                        * mediaPlayer.getCurrentTime().toMillis()
+                        progBar.setProgress(/*1.0**/ mediaPlayer.getCurrentTime().toMillis()
                         / mediaPlayer.getTotalDuration().toMillis());
 
 
                         timeNowLabel.setText(ConversionUtils.convertTimeInSeconds((int) newValue.toSeconds()) + " / " +
                                 ConversionUtils.convertTimeInSeconds((int) mediaPlayer.getTotalDuration().toSeconds()));
-//                        timeNowLabel.setText(ConversionUtils.convertTimeInSeconds((int) newValue.toSeconds()));
-//                        timeExitLabel.setText(ConversionUtils.convertTimeInSeconds((int) mediaPlayer.getTotalDuration().toSeconds()));
             }
         };
         return progressChangeListener;
     }
 
     /**
-     * Listens for left mouse button click or drag action on the speed section. Reacts
+     * Listens for left mouse button click action on the speed section. Reacts
      * by calling settingRequestHandler.
      *
      * @return {@code EventHandler<MouseEvent>}
@@ -772,8 +783,7 @@ public class RazPlayerViewController {
             public void handle(MouseEvent event) {
                 if (mediaPlayer == null) {
                     event.consume();
-                } else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED
-                        || event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+                } else if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
                     speedHandler();
                 }
             }
@@ -781,7 +791,26 @@ public class RazPlayerViewController {
     }
 
     /**
-     * Listens for left mouse button click or drag action on the playList section. Reacts
+     * Listens for touch action on the speed section. Reacts
+     * by calling settingRequestHandler.
+     *
+     * @return {@code EventHandler<TouchEvent>}
+     */
+    private EventHandler<TouchEvent> speedSectionTouchListener() {
+        return new EventHandler<TouchEvent>() {
+            @Override
+            public void handle(TouchEvent event) {
+                if (mediaPlayer == null) {
+                    event.consume();
+                } else if (event.getEventType() == TouchEvent.TOUCH_PRESSED) {
+                    speedHandler();
+                }
+            }
+        };
+    }
+
+    /**
+     * Listens for left mouse button click action on the playList section. Reacts
      * by calling settingRequestHandler.
      *
      * @return {@code EventHandler<MouseEvent>}
@@ -790,8 +819,7 @@ public class RazPlayerViewController {
         return new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (event.getEventType() == MouseEvent.MOUSE_DRAGGED
-                        || event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+                if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
                     playListHandler();
                 }
             }
@@ -799,7 +827,24 @@ public class RazPlayerViewController {
     }
 
     /**
-     * Listens for left mouse button click or drag action on the number of speed section. Reacts
+     * Listens for touch action on the playList section. Reacts
+     * by calling settingRequestHandler.
+     *
+     * @return {@code EventHandler<TouchEvent>}
+     */
+    private EventHandler<TouchEvent> playListSectionTouchListener() {
+        return new EventHandler<TouchEvent>() {
+            @Override
+            public void handle(TouchEvent event) {
+                if (event.getEventType() == TouchEvent.TOUCH_MOVED) {
+                    playListHandler();
+                }
+            }
+        };
+    }
+
+    /**
+     * Listens for left mouse button click action on the number of speed section. Reacts
      * by calling settingRequestHandler.
      *
      * @return {@code EventHandler<MouseEvent>}
@@ -810,7 +855,7 @@ public class RazPlayerViewController {
             public void handle(MouseEvent event) {
                 if (event.getEventType() == MouseEvent.MOUSE_DRAGGED
                         || event.getEventType() == MouseEvent.MOUSE_CLICKED) {
-                    rateMedia(rate);
+                    setRateMedia(rate);
                     speedControls.setVisible(HIDE_UI);
                     showSpeed = HIDE_UI;
                     settingControls.setVisible(SHOW_UI);
@@ -819,6 +864,81 @@ public class RazPlayerViewController {
             }
         };
     }
+
+    /**
+     * Listens for touch action on the number of speed section. Reacts
+     * by calling settingRequestHandler.
+     *
+     * @return {@code EventHandler<TouchEvent>}
+     */
+    private EventHandler<TouchEvent> rateMediaTouchListener(double rate) {
+        return new EventHandler<TouchEvent>() {
+            @Override
+            public void handle(TouchEvent event) {
+                if (event.getEventType() == TouchEvent.TOUCH_PRESSED) {
+                    setRateMedia(rate);
+                    speedControls.setVisible(HIDE_UI);
+                    showSpeed = HIDE_UI;
+                    settingControls.setVisible(SHOW_UI);
+                    showSetting = SHOW_UI;
+                }
+            }
+        };
+    }
+
+    /**
+     * Listens for keyboard press action. Reacts by calling RequestHandler button.
+     * @return {@code EventHandler<KeyEvent>}
+     */
+    private EventHandler<KeyEvent> keyRequestHandler() {
+        return new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                if (keyCode == KeyCode.O){
+                    openRequestHandler();
+                } else if (keyCode == KeyCode.K || keyCode == KeyCode.SPACE) {
+                    playRequestHandler();
+                } else if (keyCode == KeyCode.J || keyCode == KeyCode.LEFT || keyCode == KeyCode.KP_LEFT){
+                    backRequestHandler();
+                } else if (keyCode == KeyCode.L || keyCode == KeyCode.RIGHT || keyCode == KeyCode.KP_RIGHT){
+                    nextRequestHandler();
+                } else if (keyCode == KeyCode.M){
+                    muteRequestHandler();
+                } else if (keyCode == KeyCode.S){
+                    settingRequestHandler();
+                } else if (keyCode == KeyCode.F){
+                    fullScreenRequestHandler();
+                }
+            }
+        };
+    }
+
+//    /**
+//     * Listens for touch screens action. Reacts by calling RequestHandler button.
+//     * @return {@code EventHandler<TouchEvent>}
+//     */
+//    private EventHandler<TouchEvent> touchRequestHandler() {
+//        return new EventHandler<TouchEvent>() {
+//            @Override
+//            public void handle(TouchEvent event) {
+//                EventType eventType = event.getEventType();
+//                if (mediaPlayer == null){
+//                    event.consume();
+//                } else if (showUI){
+//                    playRequestHandler();
+//                } else if (eventType == TouchEvent.TOUCH_PRESSED || eventType == TouchEvent.TOUCH_MOVED){
+//
+//                    if (timeLine != null) {
+//                        timeLine.stop();
+//                    }
+//                    toggleUI(SHOW_UI);
+//                } else if (eventType == TouchEvent.TOUCH_RELEASED){
+//                    toggleUI(HIDE_UI);
+//                }
+//            }
+//        };
+//    }
 
     /**
      * Listens for left mouse button click or drag action on the progress bar. Reacts
@@ -840,6 +960,32 @@ public class RazPlayerViewController {
                     //Console printout for easier testing.
                     System.out.println("Setting media progress to "
                             + (int) ((event.getX()+5) / progBar.getWidth() * 100)
+                            + " %");
+                }
+            }
+        };
+    }
+
+    /**
+     * Listens for thouch or move action on the progress bar. Reacts
+     * by updating the media position index.
+     *
+     * @return {@code EventHandler<TouchEvent>}
+     */
+    private EventHandler<TouchEvent> progBarTouchListener() {
+        return new EventHandler<TouchEvent>() {
+            @Override
+            public void handle(TouchEvent event) {
+                if (mediaPlayer == null) {
+                    event.consume();
+                } else if (event.getEventType() == TouchEvent.TOUCH_MOVED
+                        || event.getEventType() == TouchEvent.TOUCH_PRESSED) {
+                    mediaPlayer.seek(mediaPlayer.getTotalDuration().multiply(
+                            event.getTouchPoint().getX() / progBar.getWidth()));
+
+                    //Console printout for easier testing.
+                    System.out.println("Setting media progress to "
+                            + (int) ((event.getTouchPoint().getX()+5) / progBar.getWidth() * 100)
                             + " %");
                 }
             }
@@ -871,7 +1017,34 @@ public class RazPlayerViewController {
                     }
                 }
             }
+        };
+    }
 
+    /**
+     * Listens for mouse entering and exiting the UI container. Toggles UI
+     * visibility accordingly using <i>toggleUI()</i>
+     *
+     * @return {@code EventHandler<TouchEvent>}
+     */
+    private EventHandler<TouchEvent> uITouchInOutListener() {
+        return new EventHandler<TouchEvent>() {
+            @Override
+            public void handle(TouchEvent event) {
+                if (mediaPlayer == null) {
+                    event.consume();
+                } else if (event.getEventType() == TouchEvent.TOUCH_PRESSED) {
+                    if (timeLine != null) {
+                        timeLine.stop();
+                    }
+                    if (!showUI) {
+                        toggleUI(SHOW_UI);
+                    }
+                } else if (event.getEventType() == TouchEvent.TOUCH_RELEASED) {
+                    if (showUI) {
+                        toggleUI(HIDE_UI);
+                    }
+                }
+            }
         };
     }
 

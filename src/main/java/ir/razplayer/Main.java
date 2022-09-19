@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ir.razplayer.model.MediaItem;
-import ir.razplayer.view.MediaPlayerViewController;
 import ir.razplayer.view.PlayListViewController;
 
 import java.io.IOException;
@@ -59,7 +58,7 @@ public class Main extends Application {
     /**
      * The Version of Media Player.
      */
-    private final String versionNumber = "v1.0.4";
+    private final String versionNumber = "v1.0.5";
 
     @Override
     public void start(Stage primaryStage) {
@@ -69,7 +68,7 @@ public class Main extends Application {
         this.primaryStage.setTitle(mediaPlayerName + " " + versionNumber);
 
         //Attach the icon to the stage/window
-        Image icon = new Image("file:resources/images/logo.png");
+        Image icon = new Image(String.valueOf(Main.class.getResource("images/logo.png")));
         this.primaryStage.getIcons().add(icon);
 
         initRootLayout();
@@ -115,29 +114,6 @@ public class Main extends Application {
 
             // Give the controller access to the main app.
             RazPlayerViewController controller = loader.getController();
-            controller.setMain(this);
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Shows the media player inside the root layout.
-     */
-    public void showMediaPlayerView()
-    {
-        try{
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("mediaPlayerView.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(personOverview);
-
-            // Give the controller access to the main app.
-            MediaPlayerViewController controller = loader.getController();
             controller.setMain(this);
         }
         catch (IOException e){

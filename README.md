@@ -10,6 +10,14 @@ The latest version of Pea Media Player is here: https://github.com/Denethrilien/
 
 # Versions Log
 
+### version 1.0.5 (9/19/2022)
+- add shortcut key to app
+- add touch event to app
+- increase efficiency of the app
+- change base directories
+- fix the problem for end video of playlist
+
+---
 ### version 1.0.4 (9/18/2022)
 - change system to show setting menu
 - change the UI of setting menu
