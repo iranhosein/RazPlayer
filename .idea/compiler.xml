@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="RazPlayer" target="18" />
+      <module name="RazPlayer" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
