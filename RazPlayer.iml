@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_X">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -24,7 +24,7 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-media:win:18-ea+6" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:11.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.dlsc.formsfx:formsfx-core:11.3.2" level="project" />
-    <orderEntry type="library" name="Maven: net.synedra:validatorfx:0.1.13" level="project" />
+    <orderEntry type="library" name="Maven: net.synedra:validatorfx:0.3.1" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-javafx:12.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-core:12.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0" level="project" />

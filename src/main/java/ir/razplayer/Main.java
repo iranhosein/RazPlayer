@@ -1,5 +1,6 @@
 package ir.razplayer;
 
+import ir.razplayer.view.RazPlayerViewController;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -7,12 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ir.razplayer.model.MediaItem;
-import ir.razplayer.view.MediaPlayerViewController;
 import ir.razplayer.view.PlayListViewController;
 
 import java.io.IOException;
@@ -49,15 +50,29 @@ public class Main extends Application {
      */
     private IntegerProperty current;
 
+    /**
+     * The Media Player Name.
+     */
+    private final String mediaPlayerName = "Raz Media Player";
+
+    /**
+     * The Version of Media Player.
+     */
+    private final String versionNumber = "v1.0.7";
+
     @Override
     public void start(Stage primaryStage) {
 
         this.current =new SimpleIntegerProperty(0);
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Raz Media Player v1.0.0");
+        this.primaryStage.setTitle(mediaPlayerName + " " + versionNumber);
+
+        //Attach the icon to the stage/window
+        Image icon = new Image(String.valueOf(Main.class.getResource("images/logo.png")));
+        this.primaryStage.getIcons().add(icon);
 
         initRootLayout();
-        showMediaPlayerView();
+        showRazPlayerView();
     }
 
     /**
@@ -86,19 +101,19 @@ public class Main extends Application {
     /**
      * Shows the media player inside the root layout.
      */
-    public void showMediaPlayerView()
+    public void showRazPlayerView()
     {
         try{
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("MediaPlayerView.fxml"));
+            loader.setLocation(Main.class.getResource("RazPlayerView.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
 
             // Give the controller access to the main app.
-            MediaPlayerViewController controller = loader.getController();
+            RazPlayerViewController controller = loader.getController();
             controller.setMain(this);
         }
         catch (IOException e){
@@ -120,7 +135,8 @@ public class Main extends Application {
 
             // Create the dialog Stage.
             Stage playListStage = new Stage();
-            playListStage.setTitle("Raz Media Player ::: Playlist");
+
+            playListStage.setTitle(mediaPlayerName + " ::: Playlist");
             playListStage.initModality(Modality.WINDOW_MODAL);
             playListStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
